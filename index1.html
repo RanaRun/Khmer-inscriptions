@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>វចនានុក្រមសិលាចារឹកខ្មែរ</title>
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: white;
+      font-family: "Khmer OS Moul", sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+      margin: 0;
+    }
+
+    h1, h2 {
+      font-family: 'Khmer OS Moul', sans-serif;
+      font-weight: normal;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: darkblue;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: white;
+      margin-top: 8px;
+    }
+
+    form {
+      margin-top: 40px;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #444497;
+      color: white;
+      font-family: 'Khmer OS Moul', sans-serif;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-family: 'Khmer OS Moul', sans-serif;
+      background-color: #444497;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #35357a;
+    }
+
+    .result-card {
+      background-color: #2a2a57;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .word {
+      font-size: 24px;
+      display: block;
+      font-family: 'KHMER M1', sans-serif;
+    }
+
+    .pos {
+      font-size: 20px;
+      color: #ff0000;
+      font-family: 'Khmer OS Moulpali', sans-serif;
+      margin-top: 4px;
+    }
+
+    .definition {
+      font-size: 18px;
+      font-family: 'Kh Rayuth HD 18', sans-serif;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .not-found {
+      margin-top: 30px;
+      font-size: 18px;
+      color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ក្រុមអ្នកនិពន្ធកម្ពុជា</h1>
+  <h2>វចនានុក្រមសិលាចារឹកខ្មែរ</h2>
+
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="ស្វែងរកពាក្យ..." />
+    <button type="submit">ស្វែងរក</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const dictionary = {
+      "បព្វជ្ជា": {
+        pos: "នាម",
+        definition: "ការ បួស, ផ្នួស។ សូមបព្វជ្ជា គឺសូមផ្នួស; ឱ្យបព្វជ្ជា គឺបំបួស (ឱ្យបានជាសាមណេរ) បានបំពេញបព្វជ្ជា ឬ បានទទួលបព្វជ្ជា ពីថ្ងៃ ...។",
+        source: "ប្រើក្នុងបរិបទព្រះសង្ឃ និងព្រះពុទ្ធសាសនា។",
+        note: "កុំប្រើថា បានបព្វជ្ជា ..."
+      }
+    };
+
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const query = input.value.trim();
+      resultDiv.innerHTML = "";
+
+      if (!query) {
+        alert("សូមបញ្ចូលពាក្យស្វែងរក");
+        return;
+      }
+
+      const entry = dictionary[query];
+      if (entry) {
+        resultDiv.innerHTML = `
+          <div class="result-card">
+            <span class="word">${query}</span>
+            <span class="pos">${entry.pos}</span>
+            <p class="definition">${entry.definition}</p>
+          </div>
+        `;
+      } else {
+        resultDiv.innerHTML = `<div class="not-found">មិនមានលទ្ធផលសម្រាប់ពាក្យ "${query}"</div>`;
+      }
+    });
+  </script>
+
+</body>
+</html>
